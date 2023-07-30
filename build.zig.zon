@@ -1,0 +1,10 @@
+.{
+    .name = "mach-opus",
+    .version = "0.0.0",
+    .dependencies = .{
+        .opusfile = .{
+            .url = "https://github.com/hexops/opusfile/archive/865dcb7e433675a5e1d3834d01c727be51953807.tar.gz",
+            .hash = "1220a586ba6a78df25b8d1167cf433cadd6db96f9382cd59cb7571eebf032aa8a876",
+        },
+    },
+}
