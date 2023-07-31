@@ -7,6 +7,11 @@ Zig bindings to `libopus` - the battle-hardened official xiph.org C library for 
 
 ## Usage
 
+```
+zig build test
+ffplay -f f32le -ar 48000 -ac 2 zig-out/raw_audio.pcm
+```
+
 See https://machengine.org/pkg/mach-opus
 
 ## Issues
