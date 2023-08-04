@@ -3,8 +3,8 @@
     .version = "0.0.0",
     .dependencies = .{
         .opusfile = .{
-            .url = "https://pkg.machengine.org/opusfile/af1def68addf7441eeba186ace28d3b5946b1397.tar.gz",
-            .hash = "1220fa944b299eb864fb8dabfe834178f03dbe8e1f88620d55764d2f2f961407f605",
+            .url = "https://pkg.machengine.org/opusfile/1eec16bd2f0baeae6908268aaded591bc8f3cb12.tar.gz",
+            .hash = "12207a64b805355cb55fa18bff453c8f6307ec3e40b6eba95a1848ba18aa39d3037f",
         },
     },
 }
