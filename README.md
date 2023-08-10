@@ -1,23 +1,33 @@
-# mach-opus: Opus audio encoding/decoding for Zig
+<a href="https://machengine.org/pkg/mach-opus">
+    <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="https://machengine.org/assets/mach/opus-full-dark.svg">
+        <img alt="mach-opus" src="https://machengine.org/assets/mach/opus-full-light.svg" height="150px">
+    </picture>
+</a>
 
-Zig bindings to `libopus` - the battle-hardened official xiph.org C library for Opus audio encoding & decoding. Features:
+Opus audio decoding and encoding for Zig via the battle-hardened xiph.org libopus / libopusfile
 
-* Zero-fuss installation, cross compilation, and no system dependencies.
+## Experimental
+
+This is an **experimental** project according to [our stability guarantees](https://machengine.org/about/stability):
+
+> When a project has an experimental warning, it means all bets are off. You should carefully read the warning to understand why the project is experimental, and assume the worst.
+
+**Tracking issue:** https://github.com/hexops/mach/issues/961
+
+## Features
+
+* Zero-fuss installation, cross-compilation at the flip of switch.
 * Encoding & decoding support
 
-## Usage
+## Documentation
 
-```
-zig build test
-ffplay -f f32le -ar 48000 -ac 2 zig-out/raw_audio.pcm
-```
+[machengine.org/pkg/mach-opus](https://machengine.org/pkg/mach-opus)
 
-See https://machengine.org/pkg/mach-opus
+## Join the community
+
+Join the [Mach community on Discord](https://discord.gg/XNG3NZgCqp) to discuss this project, ask questions, get help, etc.
 
 ## Issues
 
 Issues are tracked in the [main Mach repository](https://github.com/hexops/mach/issues?q=is%3Aissue+is%3Aopen+label%3Aopus).
-
-## Community
-
-Join the Mach engine community [on Discord](https://discord.gg/XNG3NZgCqp) to discuss this project, ask questions, get help, etc.
