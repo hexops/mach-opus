@@ -32,8 +32,8 @@ pub fn build(b: *std.Build) void {
     //     .target = target,
     //     .optimize = optimize,
     // });
-    // example.addModule("opus", module);
-    // example.addModule("sysaudio", sysaudio.module(b, optimize, target));
+    // example.addModule("mach-opus", module);
+    // example.addModule("mach-sysaudio", sysaudio.module(b, optimize, target));
     // example.linkLibrary(libopusfile_dep.artifact("opusfile"));
     // sysaudio.link(b, example, .{});
     // b.installArtifact(example);
