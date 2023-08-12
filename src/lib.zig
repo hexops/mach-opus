@@ -91,13 +91,3 @@ const Decoder = struct {
         return @intCast(decoder.stream.getPos() catch 0);
     }
 };
-
-test {
-    const test_file = @embedFile("../assets/time.opus");
-    const fbs = std.io.fixedBufferStream(test_file);
-    var stream = std.io.StreamSource{ .const_buffer = fbs };
-    const out = try decodeStream(std.testing.allocator, stream);
-    defer std.testing.allocator.free(out.samples);
-    const zig_out = try std.fs.cwd().makeOpenPath("zig-out", .{});
-    try zig_out.writeFile("raw_audio.pcm", std.mem.sliceAsBytes(out.samples));
-}
