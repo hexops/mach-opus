@@ -1,6 +1,6 @@
 const std = @import("std");
-const sysaudio = @import("sysaudio");
-const Opus = @import("opus");
+const sysaudio = @import("mach-sysaudio");
+const Opus = @import("mach-opus");
 
 var file_decoded: Opus = undefined;
 var player: sysaudio.Player = undefined;
