@@ -3,8 +3,8 @@
     .version = "0.0.0",
     .dependencies = .{
         .opusfile = .{
-            .url = "https://pkg.machengine.org/opusfile/2d65c26be4f0432d5a6fbbfea2537e9da806c548.tar.gz",
-            .hash = "1220734755fadfbd81d30668c83b4728a05403ae66e70f9842a13302afe33baf395c",
+            .url = "https://pkg.machengine.org/opusfile/d96530f52250c9fb6498b928d8814a34ff4680df.tar.gz",
+            .hash = "1220b12608699135c21700e89f1424b161666d82892932cfb9113e794099d2dfb8ad",
         },
         .mach_sysaudio = .{
             .url = "https://pkg.machengine.org/mach-sysaudio/2e186c3b2c48149f4407f2f5cfb5492a0a163b42.tar.gz",
