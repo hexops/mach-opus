@@ -12,6 +12,7 @@ pub const DecodeError = error{
     InvalidData,
     Reading,
     Seeking,
+    UnknownError,
 };
 
 pub fn decodeStream(allocator: std.mem.Allocator, stream: std.io.StreamSource) (DecodeError || std.io.StreamSource.ReadError)!Opus {
@@ -31,16 +32,25 @@ pub fn decodeStream(allocator: std.mem.Allocator, stream: std.io.StreamSource) (
     );
     switch (err) {
         0 => {},
+        // An underlying read operation failed. This may signal a truncation attack from an <https:> source.
         c.OP_EREAD => return error.Reading,
+        // An internal memory allocation failed.
         c.OP_EFAULT => return error.OutOfMemory,
-        c.OP_EIMPL => unreachable,
+        // An unseekable stream encountered a new link that used a feature that is not implemented, such as an unsupported channel family.
+        c.OP_EIMPL => return error.UnknownError,
+        // The stream was only partially open.
         c.OP_EINVAL => return error.Seeking,
-        c.OP_ENOTFORMAT => unreachable,
+        // An unseekable stream encountered a new link that did not have any logical Opus streams in it.
+        c.OP_ENOTFORMAT => return error.UnknownError,
+        // An unseekable stream encountered a new link with a required header packet that was not properly formatted, contained illegal values, or was missing altogether. 
         c.OP_EBADHEADER => return error.InvalidData,
+        // An unseekable stream encountered a new link with an ID header that contained an unrecognized version number.
         c.OP_EVERSION => return error.InvalidData,
+        // We failed to find data we had seen before. 
         c.OP_EBADLINK => return error.Seeking,
+        // An unseekable stream encountered a new link with a starting timestamp that failed basic validity checks.
         c.OP_EBADTIMESTAMP => return error.InvalidData,
-        else => unreachable,
+        else => return error.UnknownError,
     }
 
     const header = c.op_head(opus_file, 0);
