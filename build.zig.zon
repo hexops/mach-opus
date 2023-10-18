@@ -17,8 +17,8 @@
             .hash = "12203293a3503683ee57c0f348899ab1f6d2c6aa7a84e8bbfd4df46a9c8faa7ba305",
         },
         .mach_sysaudio = .{
-            .url = "https://pkg.machengine.org/mach-sysaudio/12e9801f9686655466fd5dba5cbab2e22da32bfc.tar.gz",
-            .hash = "1220bb517fe471189559106415e8eb7c785547e404d38f365dd112d2c264c2166fd6",
+            .url = "https://pkg.machengine.org/mach-sysaudio/f987d55fefbb7b7ef5c742ad2e64db68a5a2110d.tar.gz",
+            .hash = "1220539dbe43f4651bac0495175d5567661c8b9c323fb4fbea9aa1de67a2a7b26566",
         },
         .linux_audio_headers = .{
             .url = "https://pkg.machengine.org/linux-audio-headers/6b182ff9d51009ca903f3bac63777fbfa654e5f5.tar.gz",
