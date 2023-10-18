@@ -25,7 +25,10 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     example.addModule("mach-opus", module);
-    example.addModule("mach-sysaudio", sysaudio.module(b, optimize, target));
+    example.addModule("mach-sysaudio", b.dependency("mach_sysaudio", .{
+        .target = target,
+        .optimize = optimize,
+    }).module("mach-sysaudio"));
     link(b, example);
     sysaudio.link(b, example);
     b.installArtifact(example);

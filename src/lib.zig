@@ -42,11 +42,11 @@ pub fn decodeStream(allocator: std.mem.Allocator, stream: std.io.StreamSource) (
         c.OP_EINVAL => return error.Seeking,
         // An unseekable stream encountered a new link that did not have any logical Opus streams in it.
         c.OP_ENOTFORMAT => return error.UnknownError,
-        // An unseekable stream encountered a new link with a required header packet that was not properly formatted, contained illegal values, or was missing altogether. 
+        // An unseekable stream encountered a new link with a required header packet that was not properly formatted, contained illegal values, or was missing altogether.
         c.OP_EBADHEADER => return error.InvalidData,
         // An unseekable stream encountered a new link with an ID header that contained an unrecognized version number.
         c.OP_EVERSION => return error.InvalidData,
-        // We failed to find data we had seen before. 
+        // We failed to find data we had seen before.
         c.OP_EBADLINK => return error.Seeking,
         // An unseekable stream encountered a new link with a starting timestamp that failed basic validity checks.
         c.OP_EBADTIMESTAMP => return error.InvalidData,
