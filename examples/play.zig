@@ -53,12 +53,14 @@ pub fn main() !void {
 }
 
 var i: usize = 0;
-fn writeCallback(_: ?*anyopaque, frames: usize) void {
-    for (0..frames) |fi| {
-        if (i >= file_decoded.samples.len) i = 0;
-        for (0..file_decoded.channels) |ch| {
-            player.write(player.channels()[ch], fi, file_decoded.samples[i]);
-            i += 1;
-        }
-    }
+fn writeCallback(_: ?*anyopaque, output: []u8) void {
+    if (i >= file_decoded.samples.len) i = 0;
+    const to_write = @min(output.len / player.format().size(), file_decoded.samples.len - i);
+    sysaudio.convertTo(
+        f32,
+        file_decoded.samples[i..][0..to_write],
+        player.format(),
+        output[0 .. to_write * player.format().size()],
+    );
+    i += to_write;
 }
