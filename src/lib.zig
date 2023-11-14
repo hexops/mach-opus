@@ -15,7 +15,10 @@ pub const DecodeError = error{
     UnknownError,
 };
 
-pub fn decodeStream(allocator: std.mem.Allocator, stream: std.io.StreamSource) (DecodeError || std.io.StreamSource.ReadError)!Opus {
+pub fn decodeStream(
+    allocator: std.mem.Allocator,
+    stream: std.io.StreamSource,
+) (DecodeError || std.io.StreamSource.ReadError)!Opus {
     var decoder = Decoder{ .allocator = allocator, .stream = stream };
     var err: c_int = 0;
     var opus_file = c.op_open_callbacks(
