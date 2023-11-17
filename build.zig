@@ -41,5 +41,7 @@ pub fn build(b: *std.Build) void {
 
 pub fn link(b: *std.Build, step: *std.build.CompileStep) void {
     const opusfile_dep = b.dependency("opusfile", .{ .target = step.target, .optimize = step.optimize });
+    const opusenc_dep = b.dependency("opusenc", .{ .target = step.target, .optimize = step.optimize });
     step.linkLibrary(opusfile_dep.artifact("opusfile"));
+    step.linkLibrary(opusenc_dep.artifact("opusenc"));
 }
