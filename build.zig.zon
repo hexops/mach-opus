@@ -16,6 +16,10 @@
             .url = "https://pkg.machengine.org/opusfile/234b8f39f232a61a6c901f62044ca97590bfd725.tar.gz",
             .hash = "12203293a3503683ee57c0f348899ab1f6d2c6aa7a84e8bbfd4df46a9c8faa7ba305",
         },
+        .opusenc = .{
+            .url = "https://pkg.machengine.org/opusenc/59c144092c9f664b69c146cbd7a047aed23cda9d.tar.gz",
+            .hash = "1220bbd308fbb76b958e5f45237a0b0022993abd70d543ad22ffaa0a03812176608e",
+        },
         .mach_sysaudio = .{
             .url = "https://pkg.machengine.org/mach-sysaudio/f987d55fefbb7b7ef5c742ad2e64db68a5a2110d.tar.gz",
             .hash = "1220539dbe43f4651bac0495175d5567661c8b9c323fb4fbea9aa1de67a2a7b26566",
