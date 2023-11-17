@@ -23,6 +23,19 @@ pub fn main() !void {
         return error.InvalidDevice;
     }
 
+    // encode the decoded file
+    const encoded_file = try std.fs.cwd().createFile("/tmp/time.opus", .{});
+    var comments = try Opus.Comments.init();
+    defer comments.deinit();
+    try Opus.encodeStream(
+        std.io.StreamSource{ .file = encoded_file },
+        comments,
+        file_decoded.sample_rate,
+        file_decoded.channels,
+        .mono_stereo,
+        file_decoded.samples,
+    );
+
     player = try ctx.createPlayer(device, writeCallback, .{});
     defer player.deinit();
     try player.start();
