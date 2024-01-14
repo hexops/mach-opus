@@ -5,16 +5,32 @@ const sysaudio = @import("mach_sysaudio");
 pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
-    const module = b.addModule("mach-opus", .{ .source_file = .{ .path = "src/lib.zig" } });
 
-    const sysaudio_dep = b.dependency("mach_sysaudio", .{ .target = target, .optimize = optimize });
+    const sysaudio_dep = b.dependency("mach_sysaudio", .{
+        .target = target,
+        .optimize = optimize,
+    });
+    const opusfile_dep = b.dependency("opusfile", .{
+        .target = target,
+        .optimize = optimize,
+    });
+    const opusenc_dep = b.dependency("opusenc", .{
+        .target = target,
+        .optimize = optimize,
+    });
+
+    const module = b.addModule("mach-opus", .{
+        .root_source_file = .{ .path = "src/lib.zig" },
+    });
+    module.linkLibrary(opusfile_dep.artifact("opusfile"));
+    module.linkLibrary(opusenc_dep.artifact("opusenc"));
 
     const main_tests = b.addTest(.{
         .root_source_file = .{ .path = "src/lib.zig" },
         .target = target,
         .optimize = optimize,
     });
-    link(b, main_tests);
+    addPaths(main_tests);
     b.installArtifact(main_tests);
 
     const test_step = b.step("test", "Run library tests");
@@ -26,10 +42,9 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-    link(b, example);
-    example.addModule("mach-opus", module);
-    example.addModule("mach-sysaudio", sysaudio_dep.module("mach-sysaudio"));
-    sysaudio.link(b, example);
+    example.root_module.addImport("mach-opus", module);
+    example.root_module.addImport("mach-sysaudio", sysaudio_dep.module("mach-sysaudio"));
+    addPaths(example);
     b.installArtifact(example);
 
     const example_run_cmd = b.addRunArtifact(example);
@@ -39,9 +54,12 @@ pub fn build(b: *std.Build) void {
     example_run_step.dependOn(&example_run_cmd.step);
 }
 
-pub fn link(b: *std.Build, step: *std.build.CompileStep) void {
-    const opusfile_dep = b.dependency("opusfile", .{ .target = step.target, .optimize = step.optimize });
-    const opusenc_dep = b.dependency("opusenc", .{ .target = step.target, .optimize = step.optimize });
-    step.linkLibrary(opusfile_dep.artifact("opusfile"));
-    step.linkLibrary(opusenc_dep.artifact("opusenc"));
+pub fn addPaths(step: *std.Build.Step.Compile) void {
+    sysaudio.addPaths(step);
+}
+
+pub fn link(b: *std.Build, step: *std.Build.Step.Compile) void {
+    _ = b;
+    _ = step;
+    @panic("link(b, step) has been deprecated, use addPaths(step) instead");
 }
