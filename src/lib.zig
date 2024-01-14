@@ -25,7 +25,7 @@ pub fn decodeStream(
 ) (DecodeError || std.io.StreamSource.ReadError)!Opus {
     var decoder = Decoder{ .allocator = allocator, .stream = stream };
     var err: c_int = 0;
-    var opus_file = c.op_open_callbacks(
+    const opus_file = c.op_open_callbacks(
         &decoder,
         &c.OpusFileCallbacks{
             .read = Decoder.readCallback,
