@@ -30,7 +30,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-    addPaths(main_tests);
+    sysaudio.addPaths(&main_tests.root_module);
     b.installArtifact(main_tests);
 
     const test_step = b.step("test", "Run library tests");
@@ -44,7 +44,7 @@ pub fn build(b: *std.Build) void {
     });
     example.root_module.addImport("mach-opus", module);
     example.root_module.addImport("mach-sysaudio", sysaudio_dep.module("mach-sysaudio"));
-    addPaths(example);
+    sysaudio.addPaths(&example.root_module);
     b.installArtifact(example);
 
     const example_run_cmd = b.addRunArtifact(example);
@@ -52,14 +52,4 @@ pub fn build(b: *std.Build) void {
 
     const example_run_step = b.step("run-example", "Run example");
     example_run_step.dependOn(&example_run_cmd.step);
-}
-
-pub fn addPaths(step: *std.Build.Step.Compile) void {
-    sysaudio.addPaths(step);
-}
-
-pub fn link(b: *std.Build, step: *std.Build.Step.Compile) void {
-    _ = b;
-    _ = step;
-    @panic("link(b, step) has been deprecated, use addPaths(step) instead");
 }
