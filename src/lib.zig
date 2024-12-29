@@ -8,7 +8,12 @@ const Opus = @This();
 
 channels: u8,
 sample_rate: u24,
-samples: []f32,
+samples: []align(alignment) f32,
+
+/// The length of a @Vector(len, f32) used for SIMD audio buffers.
+pub const simd_vector_length = std.simd.suggestVectorLength(f32) orelse 1;
+
+pub const alignment = simd_vector_length * @sizeOf(f32);
 
 pub const DecodeError = error{
     OutOfMemory,
@@ -65,7 +70,7 @@ pub fn decodeStream(
     const channels: u8 = @intCast(header.*.channel_count);
     const sample_rate: u24 = @intCast(header.*.input_sample_rate);
     const total_samples: usize = @intCast(c.op_pcm_total(opus_file, -1));
-    var samples = try allocator.alloc(f32, total_samples * channels);
+    var samples = try allocator.alignedAlloc(f32, alignment, total_samples * channels);
     errdefer allocator.free(samples);
 
     var i: usize = 0;
